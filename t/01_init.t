@@ -26,6 +26,7 @@ BEGIN
 	use_ok('POE::Framework::MIDI::Ruleset');        
 	use_ok('POE::Framework::MIDI::Utility');
 	use_ok('POE::Framework::MIDI');
+	use_ok('POE::Framework::MIDI::Interval');
 }
 
 my $musician_config =  {

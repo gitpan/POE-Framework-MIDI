@@ -20,6 +20,7 @@ lib/POE/Framework/MIDI/Rule/Notes.pm
 lib/POE/Framework/MIDI/Rule/Utility.pm
 lib/POE/Framework/MIDI/Ruleset.pm
 lib/POE/Framework/MIDI/Utility.pm
+lib/POE/Framework/MIDI/Interval.pm
 LICENSE
 Makefile.PL
 README
@@ -40,4 +41,5 @@ t/12_rule.t
 t/13_ruleset.t
 t/14_utility.t
 t/15_midi.t
+t/16_interval.t
 META.yml                                 Module meta-data (added by MakeMaker)

@@ -18,6 +18,9 @@ sub new {
 	 unless $letter;
 	 
 	 die "You forgot to set a duration for the note $_name" unless $self->{cfg}->{duration};
+	$self->{cfg}->{name} = uc($self->{cfg}->{name});
+	
+	
 	return $self;	
 }
 

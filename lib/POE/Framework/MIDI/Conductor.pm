@@ -152,7 +152,15 @@ sub perl_from_event {
     elsif ($eventname eq 'POE::Framework::MIDI::Rest') {
         my $duration = $params{event}->duration;
         return "r $duration";
-    }{
+    }
+    elsif($eventname eq 'POE::Framework::MIDI::Interval') {
+    	my $duration = $params{event}->duration;
+    	my $notes = $params{event}->notes;
+    	return "n $duration, " . join ",", @$notes;    	
+    }
+ 
+    else
+    {
         warn "Unhandled event type $params{event} ignored";
     }
 }
