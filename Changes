@@ -21,3 +21,5 @@ Revision history for Perl extension POE::Framework::MIDI.
 0.5  26 July - added 'data' to Musician - internal musician data 'cookie'
 
     
+0.6  27 July - fixed stupid makefile error requiring Class::MethodMaker
+
