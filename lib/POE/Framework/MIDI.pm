@@ -12,18 +12,16 @@ use POE::Framework::MIDI::Bar;
 use POE::Framework::MIDI::Note;
 use POE::Framework::MIDI::Rest;
 use Class::MethodMaker   new_with_init => [ qw /new/] , get_set =>  qw/honk/;
-our $VERSION = 0.04;
+our $VERSION = 0.08;
 
-sub init
-{
+sub init {
 	my ($self, %args) = @_;
 	$self->{args} = \%args;
 	die "No filename set in data hashref" unless $args{data}->{filename};
 	die "No bar count set in data hashref" unless $args{data}->{bars};
 }
 
-sub musicians
-{
+sub musicians {
 	my ($self,$new_musicians) = @_;
 	die "Non array-ref passed to musicians()" if (ref($new_musicians)  and ref($new_musicians) ne 'ARRAY');
 	$new_musicians ?
@@ -31,8 +29,7 @@ sub musicians
 		: return $self->{args}->{musicians};
 }
 
-sub run
-{
+sub run {
 	my $self = shift;
 	POE::Framework::MIDI::POEConductor->spawn({
 		debug     => $self->{args}->{data}->{debug},

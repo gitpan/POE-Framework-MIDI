@@ -42,4 +42,5 @@ t/13_ruleset.t
 t/14_utility.t
 t/15_midi.t
 t/16_interval.t
+t/pod.t
 META.yml                                 Module meta-data (added by MakeMaker)
