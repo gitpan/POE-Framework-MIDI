@@ -11,7 +11,7 @@ WriteMakefile(
     PREREQ_PM    => {
         'POE'           => 0.29,
         'MIDI::Simple'  => 0,
-        'Class::MethodMaker' => 0,
       #  'Music::Scales' => 0.05,
-    },
+    	'Class::MethodMaker' => 0,
+	},
 );

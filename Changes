@@ -14,12 +14,4 @@ Revision history for Perl extension POE::Framework::MIDI.
       Same deal will go with transformations when they exist.
       
 0.3  02 July 2004
-    - oops - forgot to make dist.  This should work better 
-
-0.4 12 July 2004 - typo correction
-
-0.5  26 July - added 'data' to Musician - internal musician data 'cookie'
-
-    
-0.6  27 July - fixed stupid makefile error requiring Class::MethodMaker
-
+    - oops - forgot to make dist.  This should work better     
