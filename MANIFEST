@@ -1,10 +1,6 @@
 Changes
 eg/generic-script-use-as-a-template.perl
 eg/musician_example1.perl
-eg/tester
-lib/.DS_Store
-lib/POE/.DS_Store
-lib/POE/Framework/.DS_Store
 lib/POE/Framework/MIDI.pm
 lib/POE/Framework/MIDI/Bar.pm
 lib/POE/Framework/MIDI/Conductor.pm
@@ -26,11 +22,9 @@ lib/POE/Framework/MIDI/Ruleset.pm
 lib/POE/Framework/MIDI/Utility.pm
 LICENSE
 Makefile.PL
-MANIFEST.SKIP
 README
 TODO
 MANIFEST
-blibdirs
 t/01_init.t
 t/02_bar.t
 t/03_conductor.t
@@ -46,3 +40,4 @@ t/12_rule.t
 t/13_ruleset.t
 t/14_utility.t
 t/15_midi.t
+META.yml                                 Module meta-data (added by MakeMaker)

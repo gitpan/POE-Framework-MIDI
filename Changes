@@ -13,4 +13,5 @@ Revision history for Perl extension POE::Framework::MIDI.
       simpler if only a few simple example rules were included.  
       Same deal will go with transformations when they exist.
       
-     
+0.3  02 July 2004
+    - oops - forgot to make dist.  This should work better     
