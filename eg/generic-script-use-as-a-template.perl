@@ -15,7 +15,7 @@ use POE::Framework::MIDI::POEConductor;
 use POE::Framework::MIDI::POEMusician;
  
 # add your musician objects ...
-use POE::Framework::MIDI::Musician::YourCustomModule;
+#use POE::Framework::MIDI::Musician::YourCustomModule;
 
 
 POE::Framework::MIDI::POEConductor->spawn(
@@ -31,41 +31,33 @@ musicians =>
 	name => 'frank',
 	
 	# specify which module you want to have "play" this track. 
-	# 
+	# see eg/musician_example1.perl for a sample musician
+	## 
 	# the only real requirement for a musician object is
 	# that it define a 'make_bar' method.  ideally that should
-	# return POE::Framework::MIDI::Bar( { number => $barnum } );
-	# or a ::Phrase( { number => $barnum } );
+	# return a POE::Framework::MIDI::Bar object - don't forget
+	# to supply Bar::new with a number argument! Otherwise the
+	# conductor will not accept your bar.
 	
-	package => 'POE::Framework::MIDI::Musician::YourCustomModule',
-	
+	package => 'POE::Framework::MIDI::Musician::YourCustomModule', 
 	channel => 1,
 	patch => '77',
 },
-{
-	name => 'ian',
+{	name => 'ian',
 	package => 'POE::Framework::MIDI::Musician::YourCustomModule',
 	channel => 2,
 	patch => '60',
 },
-{
-	name => 'ike',
+{	name => 'ike',
 	package => 'POE::Framework::MIDI::Musician::YourCustomModule',
 	channel => 3,
 	patch => '88',
 },
-{
-	name => 'ainsley',
+{ 	name => 'ainsley',
 	package => 'POE::Framework::MIDI::Musician::YourCustomModule',
 	channel => 4,
 	patch => '86',
 },
-{
-	name => 'ahmet',
-	package => 'POE::Framework::MIDI::Musician::YourCustomModule',
-	channel => 5,
-	patch => '80',
-}
 
 ],
 } ); 
