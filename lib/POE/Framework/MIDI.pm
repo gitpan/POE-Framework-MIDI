@@ -12,7 +12,7 @@ use POE::Framework::MIDI::Bar;
 use POE::Framework::MIDI::Note;
 use POE::Framework::MIDI::Rest;
 use Class::MethodMaker   new_with_init => [ qw /new/] , get_set =>  qw/honk/;
-our $VERSION = 0.04;
+our $VERSION = 0.05;
 
 sub init
 {

@@ -46,6 +46,11 @@ sub channel {
     return $self->{cfg}->{channel};
 }
 
+sub data {
+	my $self = shift;
+	return $self->{cfg}->{data};
+}
+
 1;
 
 __END__

@@ -19,7 +19,8 @@ sub spawn {
      	package => $package,
      	name => $self->{cfg}->{name}, 
      	patch => $patch,
-     	channel => $channel})
+     	channel => $channel,
+     	data => $self->{cfg}->{data}, })
      	or die "couldn't make a new $self->{cfg}->{package}" ;
     return undef;
 }

@@ -18,11 +18,13 @@ BEGIN
 ok(my $musician = POE::Framework::MIDI::Musician->new( {
 		name => 'Frank', 
 		package => 'Mytest',
-		channel => 1
+		channel => 1,
+		data => [ 'foo', 'bar', 'blah' ],
 		}));
 ok(my $pkg = $musician->package,'Package');
 ok(my $name = $musician->name, 'Name');
 ok(my $chan = $musician->channel, 'Channel');
+ok($musician->data);
 
 
 package MyTest;
