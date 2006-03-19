@@ -7,11 +7,12 @@ use vars '$VERSION'; $VERSION = '0.02';
 use POE::Framework::MIDI::Utility;
 
 sub new {
-    my ($self, $class) = ({}, shift);
+
+    my ( $self,  $class ) = ( {},  shift );
     bless $self, $class;
     my %params = @_;
     $self->{cfg} = \%params;
-    warn 'please provide a number => $n param when generating bars'
+    warn 'please provide a value for the number => $n parameter when generating bars'
     unless $self->{cfg}->{number}; 
     return $self;    
 }
@@ -24,19 +25,17 @@ sub number {
 
 # return the stack of notes/rests/intervals
 sub events {
-    my ($self, $new_events) = @_;
-    $new_events 
-        ? $self->{events} = $new_events
-        : return $self->{events}
+    my ( $self,  $new_events ) = @_;
+    $new_events  ? $self->{events} = $new_events : return $self->{events}
 }
 
 sub add_event {
-    my ($self, $event) = @_;
+    my ( $self, $event ) = @_;
     push @{$self->{events}}, $event;    
 }
 
 sub add_events {
-    my($self, @events) = @_;
+    my ( $self, @events ) = @_;
     push @{$self->{events}}, @events;    
 }
 

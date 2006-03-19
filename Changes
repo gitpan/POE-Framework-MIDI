@@ -23,4 +23,12 @@ Revision history for Perl extension POE::Framework::MIDI.
     
 0.6  27 July - fixed stupid makefile error re Class::MethodMaker
 
-0.7 05 Feb 2005 - added pod tests
+0.7 05 Feb 2005 - added pod test
+
+0.8 05 Feb 2005 - a few bugs went up on 0.7 - oopsie.  
+
+0.9 19 March 2005 - removed calls to deprecated 'POE::Session->new' and replaced
+them with POE::Session->spawn
+
+ 
+

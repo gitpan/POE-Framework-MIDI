@@ -12,33 +12,32 @@ use MIDI::Simple;
 my $lexicon = {
     # major scale is tone tone semitone, tone tone tone semitone
     maj => [0,2,2,1,2,2,2,1], major => [0,2,2,1,2,2,2,1],
-    # declaring it twice is probably dumb
+    # declaring it twice is probably dumb, but we need to be able to refer to it by both
+    # key names......there's probaby a more sane way to do this
 };
 
 sub new {
-    my ($self, $class) = ({}, shift);
+    my (  $self, $class ) = ( {}, shift );
     bless $self, $class;
-    $self->{cfg} = shift;
+    $self->{cfg} 	= shift;
     #$self->make_root_numeric;
     $self->{intervals} = $lexicon->{$self->{cfg}->{name}} 
         or warn "sorry - $self->{cfg}->{name} is not supported yet";
     return $self;    
 }
 
-# the root note
+# the root note - the tonic of the key
 sub root {
-    my ($self, $new_root) = @_;
+    my ( $self, $new_root ) = @_;
     $new_root ? 
-        $self->{cfg}->{root} = $new_root
-        : return $self->{cfg}->{root}
+        $self->{cfg}->{root} = $new_root  : return $self->{cfg}->{root}
 }
 
 #chord's name
 sub name {
-    my ($self, $new_name) = @_;
+    my ( $self, $new_name ) = @_;
     $new_name ?
-        $self->{cfg}->{name} = $new_name
-        : return $self->{cfg}->{name}            
+        $self->{cfg}->{name} = $new_name : return $self->{cfg}->{name}            
 }
 
 sub make_root_numeric {
@@ -49,8 +48,8 @@ sub make_root_numeric {
 }
 
 sub note_to_number {
-    my ($self, $note) = @_;
-    my ($letters, $numbers) = $note =~ /(\D+)(\d+)/; 
+    my ( $self,  $note ) = @_;
+    my ( $letters, $numbers ) = $note =~ /(\D+)(\d+)/; 
     my $position = $MIDI::Simple::Note{$letters};
     my $end_position = $position + ($numbers * 12);
     return $end_position; 
@@ -58,7 +57,7 @@ sub note_to_number {
 
 # what is the position of this note in the key?
 sub noteposition {
-    my ($self, $note) = @_;
+    my ( $self, $note ) = @_;
     my $numeric_position = $self->note_to_number($note);
     print $self->root . "\n";
     my $scale = $self->numeric_scale;

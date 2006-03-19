@@ -6,41 +6,35 @@ use vars '$VERSION'; $VERSION = '0.02';
 use POE::Framework::MIDI::Utility;
 
 sub new {
-	my ($self,$class) = ({},shift);
+	my ( $self, $class ) = ( {}, shift );
 	bless $self,$class;
 	my %params = @_;
 	$self->{cfg} = \%params;
 	
 	# validate note names.
-	my $_name = $self->name;
-	my ($letter) = $_name =~ /^([a-gA-G])/;
+	my $_name 	= $self->name;
+	my ($letter) 	= $_name =~ /^([a-gA-G])/;
 	die "$_name doesn't look like a valid note name.  Examples:  A, C3, G2, CS4 etc"
 	 unless $letter;
 	 
 	 die "You forgot to set a duration for the note $_name" unless $self->{cfg}->{duration};
 	$self->{cfg}->{name} = $self->{cfg}->{name};
-	
-	
 	return $self;	
 }
 
 sub duration {
-	my ($self,$new_duration) = @_;
-	$new_duration 
-		? $self->{cfg}->{duration} = $new_duration 
-		: return $self->{cfg}->{duration}		
+	my ( $self, $new_duration )  = @_;
+	$new_duration  ? $self->{cfg}->{duration} = $new_duration : return $self->{cfg}->{duration}		
 }
 
 sub name {
-	my ($self,$new_name) = @_;
-	$new_name 
-		? $self->{cfg}->{name} = $new_name
-		: return $self->{cfg}->{name}	
+	my ( $self, $new_name ) = @_;
+	$new_name ? $self->{cfg}->{name} = $new_name : return $self->{cfg}->{name}	
 }
 
 # an alias for name
 sub note {
-	my ($self,$new_note) = @_;
+	my ( $self, $new_note ) = @_;
 	$self->name($new_note);	
 	return $self->name;
 }

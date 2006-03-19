@@ -6,20 +6,16 @@ no strict 'refs';
 use vars '$VERSION'; $VERSION = '0.02';
 
 sub new {
-    my($self, $class) = ({}, shift);
-    bless($self, $class);
+    my( $self, $class ) = ( {},  shift );
+    bless( $self, $class );
     
     #my %params = @_;
     #$self->{cfg} = \%params;
     use Data::Dumper;
     
     $self->{cfg} = shift;
-   unless($self->{cfg}->{package})
-   {
+   unless($self->{cfg}->{package}) {
     die "no package provided to POE::Framework::MIDI::Musician.. it needs a package to know what to play.  Dump: " . Dumper($self->{cfg}) . "\n\n" . caller;
-   
-        
-    
    }
     #die "no channel passed to $self->{cfg}->{package}::new" unless $self->{cfg}->{package};
     #die "no name passed to $self->{cfg}->{package}:new" unless $self->{cfg}->{name};

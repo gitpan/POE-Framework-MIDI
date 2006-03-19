@@ -4,7 +4,7 @@ use vars '$VERSION'; $VERSION = '0.02';
 use POE::Framework::MIDI::Utility;
 
 sub new {
-	my ($self,$class) = ({},shift);
+	my ( $self, $class ) = ( {}, shift );
 	bless $self,$class;
 	my %params = @_;
 	$self->{cfg} = \%params;

@@ -2,39 +2,48 @@
 
 package POE::Framework::MIDI::POEConductor;
 use strict;
-use vars '$VERSION'; $VERSION = '0.02';
+use vars '$VERSION'; 
 use POE::Framework::MIDI::Conductor;
 use base 'POE::Framework::MIDI::Conductor'; 
 use POE;
 use MIDI::Simple;
 
+## Changelog
+#
+# Version: 0.3 - updated to change calls to deprecated POE::Session->new to
+# POE::Session->spawn - 16 March 2006
+
+
+
+$VERSION  = 0.3; # updated to change deprecated 
+
 # session builder - ala dngor
 sub spawn {
-    my $class = shift;
-    my $self = $class->new(@_);
-    POE::Session->new( 
-    $self => [qw(_start _stop start_musicians made_bar musician_query) ]);
+    my $class 	= shift;
+    my $self 		= $class->new(@_);
+    POE::Session->create( 
+    	object_states => [ $self => [qw(_start _stop start_musicians made_bar musician_query) ]]);
+ 
     return undef;
 }
 
 sub _start {
-    my ($self, $kernel, $session, $heap) = @_[OBJECT, KERNEL, SESSION, HEAP];
+    my ( $self, $kernel, $session, $heap ) = @_[ OBJECT, KERNEL, SESSION, HEAP ];
     $kernel->post($session,'start_musicians');
 }
 
 sub _stop {
-    my ($self, $kernel, $session, $heap) = @_[OBJECT, KERNEL, SESSION, HEAP];
+    my ( $self, $kernel, $session, $heap ) = @_[ OBJECT, KERNEL, SESSION, HEAP ];
     print "rendering...\n" if $self->{cfg}->{verbose};
     $self->render('test.mid');    
     print "conductor is all done.  take a bow.\n" if $self->{cfg}->{verbose};    
 }
 
 sub start_musicians {
-    my ($self, $kernel, $session, $heap) = @_[OBJECT, KERNEL, SESSION, HEAP];
+    my ( $self, $kernel, $session, $heap ) = @_[ OBJECT, KERNEL, SESSION, HEAP ];
     my $musicians = $self->{cfg}->{musicians} or die "no musicians defined in config";
 
-    for (@$musicians) 
-    { 
+    for (@$musicians)  { 
     	POE::Framework::MIDI::POEMusician->spawn($_)
     }
     my $musician_names = $self->musician_names;
@@ -45,20 +54,20 @@ sub start_musicians {
 
 # grabs bars from musicians as they're created
 sub made_bar {
-    my ($self, $kernel, $session, $heap, $barnum, $bar, $musician_object) 
-        = @_[OBJECT, KERNEL, SESSION, HEAP, ARG0, ARG1, ARG2 ];
+    my ( $self, $kernel, $session, $heap, $barnum, $bar, $musician_object ) 
+        = @_[ OBJECT, KERNEL, SESSION, HEAP, ARG0, ARG1, ARG2 ];
 
     $self->add_bar({
-        musician_name => $musician_object->name,
-        channel => $musician_object->channel,
-        bar => $bar,
-        barnum => $barnum
+        musician_name 	=> $musician_object->name,
+        channel 					=> $musician_object->channel,
+        bar 							=> $bar,
+        barnum 					=> $barnum
     });
 }
 
 sub musician_query {
-    my ($self, $kernel, $session, $heap, $querystring) =
-        @_[OBJECT, KERNEL, SESSION, HEAP,ARG0];
+    my ( $self, $kernel, $session, $heap, $querystring ) =
+        @_[ OBJECT, KERNEL, SESSION, HEAP, ARG0 ];
     die "null querystring passed from musician $session->{name}" unless $querystring;
     print "query with $querystring\n";    
 }

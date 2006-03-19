@@ -2,37 +2,47 @@
 
 package POE::Framework::MIDI::POEMusician;
 use strict;
-use vars '$VERSION'; $VERSION = '0.02';
+use vars '$VERSION'; 
 use base 'POE::Framework::MIDI::Musician';
 use POE;
 use POE::Framework::MIDI::Musician;
 
+# Changelog: 
+#
+# 0.02 - Updated to remove calls to deprecated POE::Session->new and replace
+# them with POE::Session->spawn instead;
+#
+
+$VERSION = 0.2;
+
 # session builder - ala dngor
 sub spawn {
-    my $class = shift;
-    my $self = $class->new(@_);
-    POE::Session->new($self => [qw(_start _stop make_a_bar)]);
-    my ($package, $patch, $channel) = ($self->{cfg}->{package}, $self->{cfg}->{patch},
-    	$self->{cfg}->{channel});	
+    my $class 	= shift;
+    my $self 		= $class->new(@_);
+    
+    POE::Session->create(
+    	object_states => [   $self => [qw(_start _stop make_a_bar)]] );
+    my ( $package,  $patch,  $channel ) = ( $self->{cfg}->{package}, $self->{cfg}->{patch},
+    	$self->{cfg}->{channel} );	
     
      $self->{musician_object} = $package->new( {
-     	package => $package,
-     	name => $self->{cfg}->{name}, 
-     	patch => $patch,
-     	channel => $channel,
-     	data => $self->{cfg}->{data}, })
+     	package 		=> $package,
+     	name 			=> $self->{cfg}->{name}, 
+     	patch 			=> $patch,
+     	channel 		=> $channel,
+     	data 			=> $self->{cfg}->{data}, })
      	or die "couldn't make a new $self->{cfg}->{package}" ;
     return undef;
 }
 
 sub _start {
-    my ($self, $kernel, $session, $heap) = @_[OBJECT, KERNEL, SESSION, HEAP];
-    $kernel->alias_set($self->name);
+    my ( $self,  $kernel,  $session,  $heap ) = @_[OBJECT, KERNEL, SESSION, HEAP];
+    $kernel->alias_set( $self->name );
     print $self->name . " has started\n" if $self->{cfg}->{verbose};
 }
 
 sub _stop {
-    my ($self, $kernel, $session, $heap) = @_[OBJECT, KERNEL, SESSION, HEAP];
+    my ( $self, $kernel, $session, $heap ) = @_[OBJECT, KERNEL, SESSION, HEAP];
 }
 
 # trigger the local musician sub-object to make a bar.
@@ -40,8 +50,7 @@ sub make_a_bar {
     my ($self, $kernel, $session, $heap, $sender, $barnum ) = 
         @_[OBJECT, KERNEL, SESSION, HEAP, SENDER, ARG0];
     
-    $kernel->post(
-        $sender, 'made_bar', $barnum,
+    $kernel->post(   $sender, 'made_bar', $barnum,
         $self->{musician_object}->make_bar($barnum), $self->{musician_object}
     );
 }

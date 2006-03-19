@@ -6,28 +6,27 @@ use vars '$VERSION'; $VERSION = '0.02';
 use POE::Framework::MIDI::Utility;
 
 sub new {
-	my ($self, $class) = ({}, shift);
+	my ( $self,  $class ) = ( {},  shift );
 	bless $self, $class;
 	$self->{cfg} = shift;
 	return $self;	
 }
 
 sub add_event {
-    my ($self, $event) = @_;
+    my ( $self, $event ) = @_;
     push @{$self->{events}}, $event;    
 }
 
 sub add_events {
-    my($self, @events) = @_;
+    my( $self, @events ) = @_;
     push @{$self->{events}}, @events;    
 }
 
 # return the stack of notes/rests/intervals/bars
 sub events {
-	my ($self, $new_events) = @_;
+	my ( $self, $new_events ) = @_;
 	$new_events 
-		? $self->{events} = $new_events
-		: return $self->{events}
+		? $self->{events} = $new_events : return $self->{events}
 }
 
 1;

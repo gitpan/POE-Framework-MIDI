@@ -12,31 +12,30 @@ use POE::Framework::MIDI::Bar;
 use POE::Framework::MIDI::Note;
 use POE::Framework::MIDI::Rest;
 use Class::MethodMaker   new_with_init => [ qw /new/] , get_set =>  qw/honk/;
-our $VERSION = 0.08;
+our $VERSION = 0.09;
 
 sub init {
-	my ($self, %args) = @_;
+	my ( $self,  %args ) = @_;
 	$self->{args} = \%args;
-	die "No filename set in data hashref" unless $args{data}->{filename};
-	die "No bar count set in data hashref" unless $args{data}->{bars};
+	die "No filename set in data hashref" 		unless $args{data}->{filename};
+	die "No bar count set in data hashref" 	unless $args{data}->{bars};
 }
 
 sub musicians {
 	my ($self,$new_musicians) = @_;
 	die "Non array-ref passed to musicians()" if (ref($new_musicians)  and ref($new_musicians) ne 'ARRAY');
-	$new_musicians ?
-		$self->{args}->{musicians} = $new_musicians
+	$new_musicians ? $self->{args}->{musicians} = $new_musicians
 		: return $self->{args}->{musicians};
 }
 
 sub run {
 	my $self = shift;
 	POE::Framework::MIDI::POEConductor->spawn({
-		debug     => $self->{args}->{data}->{debug},
-		verbose   => $self->{args}->{data}->{verbose},
-		bars      => $self->{args}->{data}->{bars},
-		filename  => $self->{args}->{data}->{filename},
-	musicians => $self->{args}->{musicians}  });
+	debug     		=> $self->{args}->{data}->{debug},
+	verbose   	=> $self->{args}->{data}->{verbose},
+	bars      		=> $self->{args}->{data}->{bars},
+	filename  	=> $self->{args}->{data}->{filename},
+	musicians 		=> $self->{args}->{musicians}  });
 
 # $poe_kernel is exported by POE
 $poe_kernel->run;
